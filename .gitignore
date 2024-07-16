@@ -1,3 +1,11 @@
+# Dependencies
 node_modules
 
+# Enviroments
+.env
+.env.*
+# Exclude all .env except exemple files
+!.env*.example
+
+# Build
 build
