@@ -1,58 +1,44 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-user-repository'
 import { hash } from 'bcryptjs'
 import { AuthenticateUseCase } from './authenticate'
 import { InvalidCredentialError } from './errors/invalid-credentials'
 import { env } from '@/env'
 
+let authenticateUseCase: AuthenticateUseCase
+
 describe('Authenticate Use Case', () => {
-  it('should be able authenticate', async () => {
+  beforeEach(async () => {
     const inMemoryRepository = new InMemoryUsersRepository()
-    const authenticateUseCase = new AuthenticateUseCase(inMemoryRepository)
+    authenticateUseCase = new AuthenticateUseCase(inMemoryRepository)
 
     await inMemoryRepository.create({
-      email: 'example@example.com',
+      email: 'jonh.doe@example.com',
       password_hash: await hash('password123', env.HASH_SALT),
-      name: 'foo',
+      name: 'Jonh Doe',
     })
+  })
 
+  it('should be able authenticate', async () => {
     const { user } = await authenticateUseCase.execute({
-      email: 'example@example.com',
+      email: 'jonh.doe@example.com',
       password: 'password123',
     })
 
-    expect(user.email).toEqual('example@example.com')
+    expect(user.email).toEqual('jonh.doe@example.com')
     expect(user.id).toEqual(expect.any(String))
   })
 
   it('should not be able authenticate with wrong email', async () => {
-    const inMemoryRepository = new InMemoryUsersRepository()
-    const authenticateUseCase = new AuthenticateUseCase(inMemoryRepository)
-
-    await inMemoryRepository.create({
-      email: 'example@example.com',
-      password_hash: await hash('password123', env.HASH_SALT),
-      name: 'foo',
-    })
-
     await expect(() =>
       authenticateUseCase.execute({
-        email: 'jonh.doe@example.com',
+        email: 'wrong@example.com',
         password: 'password123',
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialError)
   })
 
   it('should not be able authenticate with wrong password', async () => {
-    const inMemoryRepository = new InMemoryUsersRepository()
-    const authenticateUseCase = new AuthenticateUseCase(inMemoryRepository)
-
-    await inMemoryRepository.create({
-      email: 'jonh.doe@example.com',
-      password_hash: await hash('password123', env.HASH_SALT),
-      name: 'foo',
-    })
-
     await expect(() =>
       authenticateUseCase.execute({
         email: 'jonh.doe@example.com',
