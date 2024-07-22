@@ -2,6 +2,7 @@ import { CheckIn, Prisma } from '@prisma/client'
 import {
   CheckInsRepositoryInterface,
   FindByUserIdOnDateProps,
+  FindByUserIdProps,
 } from '../interfaces/check-ins-repository'
 import { randomUUID } from 'crypto'
 import dayjs from 'dayjs'
@@ -37,5 +38,15 @@ export class InMemoryCheckInsRepository implements CheckInsRepositoryInterface {
     )
 
     return checkIsOnSameDate ?? null
+  }
+
+  async findByUserId({
+    userId,
+    page,
+    pageSize,
+  }: FindByUserIdProps): Promise<CheckIn[]> {
+    return this.checkIns
+      .filter((checkIn) => checkIn.user_id === userId)
+      .slice((page - 1) * 20, page * pageSize)
   }
 }
