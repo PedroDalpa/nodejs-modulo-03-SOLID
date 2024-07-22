@@ -1,6 +1,6 @@
-import { UserRepositoryInterface } from '@/repositories/interfaces/users-repository-interface'
 import { User } from '@prisma/client'
 import { ResourceNotFoundError } from './errors/resource-not-found'
+import { UserRepositoryInterface } from '@/repositories/interfaces/users-repository'
 
 type GetUserProfileUseCaseRequest = {
   userId: string

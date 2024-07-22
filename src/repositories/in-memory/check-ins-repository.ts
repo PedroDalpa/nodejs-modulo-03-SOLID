@@ -36,8 +36,6 @@ export class InMemoryCheckInsRepository implements CheckInsRepositoryInterface {
         dayjs(checkIn.created_at).isBefore(endOfTheDay),
     )
 
-    console.log(checkIsOnSameDate)
-
     return checkIsOnSameDate ?? null
   }
 }

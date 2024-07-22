@@ -1,11 +1,15 @@
 import { Prisma, CheckIn } from '@prisma/client'
-import { CheckInsRepositoryInterface } from '../interfaces/check-ins-repository'
-import { prisma } from '@/lib/prisma'
+import {
+  CheckInsRepositoryInterface,
+  FindByUserIdOnDateProps,
+} from '../interfaces/check-ins-repository'
 
 export class CheckInsRepository implements CheckInsRepositoryInterface {
-  async create(data: Prisma.CheckInCreateInput): Promise<CheckIn> {
-    const checkIn = await prisma.checkIn.create({ data })
+  create(user: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn> {
+    throw new Error('Method not implemented.')
+  }
 
-    return checkIn
+  findByUserIdOnDate(data: FindByUserIdOnDateProps): Promise<CheckIn> {
+    throw new Error('Method not implemented.')
   }
 }

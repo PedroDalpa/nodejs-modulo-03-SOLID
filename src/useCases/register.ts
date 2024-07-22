@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import { UserRepositoryInterface } from '@/repositories/interfaces/users-repository-interface'
+import { UserRepositoryInterface } from '@/repositories/interfaces/users-repository'
 import { hash } from 'bcryptjs'
 import { UserAlreadyExistsError } from './errors/user-already-exists'
 import { User } from '@prisma/client'
