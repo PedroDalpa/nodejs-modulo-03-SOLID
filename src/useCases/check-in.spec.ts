@@ -16,7 +16,7 @@ describe('Check in Use Case', () => {
       inMemoryGymsRepository,
     )
 
-    inMemoryGymsRepository.gyms.push({
+    inMemoryGymsRepository.create({
       id: 'gym-01',
       description: 'Gym 1',
       title: 'Gym 1',
@@ -86,7 +86,7 @@ describe('Check in Use Case', () => {
   })
 
   it('should not be able to make check-in on distant gym', async () => {
-    inMemoryGymsRepository.gyms.push({
+    inMemoryGymsRepository.create({
       id: 'gym-02',
       description: 'Gym 2',
       title: 'Gym 2',
