@@ -11,7 +11,7 @@ export type FindCheckInsByUserIdProps = {
   pageSize: number
 }
 export interface CheckInsRepositoryInterface {
-  create(user: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn>
+  create(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn>
   findByUserIdOnDate(
     data: FindCheckInsByUserIdOnDateProps,
   ): Promise<CheckIn | null>
