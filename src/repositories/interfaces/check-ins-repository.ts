@@ -1,22 +1,24 @@
 import { Prisma, CheckIn } from '@prisma/client'
 
-export type FindByUserIdOnDateProps = {
+export type FindCheckInsByUserIdOnDateProps = {
   userId: string
   date: Date
 }
 
-export type FindByUserIdProps = {
+export type FindCheckInsByUserIdProps = {
   userId: string
   page: number
   pageSize: number
 }
 export interface CheckInsRepositoryInterface {
   create(user: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn>
-  findByUserIdOnDate(data: FindByUserIdOnDateProps): Promise<CheckIn | null>
+  findByUserIdOnDate(
+    data: FindCheckInsByUserIdOnDateProps,
+  ): Promise<CheckIn | null>
   findByUserId({
     userId,
     page,
     pageSize,
-  }: FindByUserIdProps): Promise<CheckIn[]>
+  }: FindCheckInsByUserIdProps): Promise<CheckIn[]>
   getAmountByUserId(userId: string): Promise<number>
 }
