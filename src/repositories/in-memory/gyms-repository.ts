@@ -1,5 +1,8 @@
 import { Gym, Prisma } from '@prisma/client'
-import { GymsRepositoryInterface } from '../interfaces/gym-repository'
+import {
+  FindGymsByNameProps,
+  GymsRepositoryInterface,
+} from '../interfaces/gym-repository'
 import { randomUUID } from 'crypto'
 import { Decimal } from '@prisma/client/runtime/library'
 
@@ -22,5 +25,15 @@ export class InMemoryGymsRepository implements GymsRepositoryInterface {
     this.gyms.push(gym)
 
     return gym
+  }
+
+  async findByName({
+    name,
+    page,
+    pageSize,
+  }: FindGymsByNameProps): Promise<Gym[]> {
+    return this.gyms
+      .filter((gym) => gym.title.toLowerCase().includes(name.toLowerCase()))
+      .slice((page - 1) * 20, page * pageSize)
   }
 }
