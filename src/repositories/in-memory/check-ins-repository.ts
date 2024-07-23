@@ -11,7 +11,7 @@ export class InMemoryCheckInsRepository implements CheckInsRepositoryInterface {
   private checkIns: CheckIn[] = []
   async create(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn> {
     const checkIn: CheckIn = {
-      id: randomUUID(),
+      id: data.id ?? randomUUID(),
       user_id: data.user_id,
       gym_id: data.gym_id,
       validated_at: data.validated_at ? new Date(data.validated_at) : null,
@@ -52,5 +52,19 @@ export class InMemoryCheckInsRepository implements CheckInsRepositoryInterface {
 
   async getAmountByUserId(userId: string): Promise<number> {
     return this.checkIns.filter((checkIn) => checkIn.user_id === userId).length
+  }
+
+  async findById(checkInId: string): Promise<CheckIn | null> {
+    return this.checkIns.find((checkIn) => checkIn.id === checkInId) ?? null
+  }
+
+  async update(checkIn: CheckIn): Promise<CheckIn> {
+    const index = this.checkIns.findIndex(
+      (existingCheckIn) => existingCheckIn.id === checkIn.id,
+    )
+
+    this.checkIns[index] = checkIn
+
+    return this.checkIns[index]
   }
 }

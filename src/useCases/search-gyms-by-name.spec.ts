@@ -40,12 +40,12 @@ describe('Search gyms by name Use Case', () => {
   it('should be able to search gyms by name', async () => {
     const { gyms } = await searchGymsUseCase.execute({ name: 'gym' })
 
-    expect(gyms).length(2)
+    expect(gyms).toHaveLength(2)
   })
 
   it('should be able to search gyms by name and return zero results', async () => {
     const { gyms } = await searchGymsUseCase.execute({ name: 'treino' })
 
-    expect(gyms).length(0)
+    expect(gyms).toHaveLength(0)
   })
 })

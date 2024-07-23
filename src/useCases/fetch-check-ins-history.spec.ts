@@ -23,7 +23,7 @@ describe('Fetch check-ins Use Case', () => {
       userId: '1',
     })
 
-    expect(checkIns).length(1)
+    expect(checkIns).toHaveLength(1)
   })
 
   it('should be able to fetch empty check-in history', async () => {
@@ -31,7 +31,7 @@ describe('Fetch check-ins Use Case', () => {
       userId: '2',
     })
 
-    expect(checkIns).length(0)
+    expect(checkIns).toHaveLength(0)
   })
 
   it('should be able to fetch paginated check-in history', async () => {
@@ -46,6 +46,6 @@ describe('Fetch check-ins Use Case', () => {
       page: 2,
     })
 
-    expect(checkIns).length(2)
+    expect(checkIns).toHaveLength(2)
   })
 })
