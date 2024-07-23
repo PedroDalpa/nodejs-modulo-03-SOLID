@@ -18,4 +18,5 @@ export interface CheckInsRepositoryInterface {
     page,
     pageSize,
   }: FindByUserIdProps): Promise<CheckIn[]>
+  getAmountByUserId(userId: string): Promise<number>
 }
