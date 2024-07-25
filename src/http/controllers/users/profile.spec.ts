@@ -1,6 +1,7 @@
 import supertest from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { app } from '@/app'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
 
 describe('Profile controller', () => {
   beforeAll(async () => {
@@ -12,20 +13,11 @@ describe('Profile controller', () => {
   })
 
   it('should be able to register', async () => {
-    await supertest(app.server).post('/users').send({
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      password: 'password123',
-    })
-
-    const { body } = await supertest(app.server).post('/auth').send({
-      email: 'john.doe@example.com',
-      password: 'password123',
-    })
+    const { token } = await createAndAuthenticateUser()
 
     const response = await supertest(app.server)
       .get('/me')
-      .set('Authorization', `Bearer ${body?.token}`)
+      .set('Authorization', `Bearer ${token}`)
       .send()
 
     expect(response.statusCode).toBe(200)

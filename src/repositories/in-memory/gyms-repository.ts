@@ -6,7 +6,7 @@ import {
 } from '../interfaces/gym-repository'
 import { randomUUID } from 'crypto'
 import { Decimal } from '@prisma/client/runtime/library'
-import { getDistanceBetweenCoordinates } from '@/useCases/utils/get-distance-between-coordinates'
+import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-coordinates'
 
 const MAX_DISTANCE_IN_KILOMETERS = 0.1
 
