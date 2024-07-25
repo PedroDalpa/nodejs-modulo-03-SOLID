@@ -9,7 +9,6 @@ export async function appRoutes(app: FastifyInstance) {
   app.post('/auth', authenticate)
 
   // ***** Authenticated ***** //
-  app.addHook('onRequest', verifyJWT)
 
-  app.get('/me', profile)
+  app.get('/me', { onRequest: [verifyJWT] }, profile)
 }
