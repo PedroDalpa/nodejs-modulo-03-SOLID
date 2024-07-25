@@ -13,11 +13,11 @@ export async function search(req: FastifyRequest, res: FastifyReply) {
 
   const searchGymUseCase = MakeSearchGymsUseCase()
 
-  const gyms = await searchGymUseCase.execute({
+  const { gyms } = await searchGymUseCase.execute({
     name,
     page,
     pageSize,
   })
 
-  return res.status(201).send({ gyms })
+  return res.status(200).send({ gyms })
 }

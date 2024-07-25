@@ -2,7 +2,7 @@ import supertest from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { app } from '@/app'
 
-describe('Authenticate controller', () => {
+describe('Authenticate user controller', () => {
   beforeAll(async () => {
     await app.ready()
   })
