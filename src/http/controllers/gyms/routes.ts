@@ -1,9 +1,13 @@
 import { FastifyInstance } from 'fastify'
-import { register } from './register'
-import { authenticate } from '../users/authenticate'
-import { profile } from './profile'
 import { verifyJWT } from '../../middlewares/verify-jwt'
+import { search } from './search'
+import { nearby } from './nearby'
+import { create } from './create'
 
 export async function gymsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', verifyJWT)
+
+  app.get('/search', search)
+  app.get('/nearby', nearby)
+  app.post('/', create)
 }
