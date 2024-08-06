@@ -27,9 +27,11 @@ describe('Check-in amount controller', () => {
   })
 
   it('should be able to get total amount of check-ins', async () => {
-    const { token } = await createAndAuthenticateUser()
-    const { token: anotherUser } =
-      await createAndAuthenticateUser('test@example.com')
+    const { token } = await createAndAuthenticateUser({ isAdmin: true })
+    const { token: anotherUser } = await createAndAuthenticateUser({
+      email: 'test@example.com',
+      isAdmin: true,
+    })
 
     await supertest(app.server)
       .post('/gyms')

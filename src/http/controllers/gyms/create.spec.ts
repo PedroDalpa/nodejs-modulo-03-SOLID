@@ -13,7 +13,7 @@ describe('Create gym controller', () => {
   })
 
   it('should be able to register', async () => {
-    const { token } = await createAndAuthenticateUser()
+    const { token } = await createAndAuthenticateUser({ isAdmin: true })
 
     const response = await supertest(app.server)
       .post('/gyms')

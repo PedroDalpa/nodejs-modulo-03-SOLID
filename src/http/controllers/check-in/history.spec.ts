@@ -27,9 +27,11 @@ describe('Check-in history controller', () => {
   })
 
   it('should be able to list the history of check-ins', async () => {
-    const { token } = await createAndAuthenticateUser()
-    const { token: anotherUser } =
-      await createAndAuthenticateUser('test@example.com')
+    const { token } = await createAndAuthenticateUser({ isAdmin: true })
+    const { token: anotherUser } = await createAndAuthenticateUser({
+      isAdmin: true,
+      email: 'test@example.com',
+    })
 
     await supertest(app.server)
       .post('/gyms')

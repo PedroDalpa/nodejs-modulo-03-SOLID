@@ -3,20 +3,22 @@ import { FastifyReply, FastifyRequest } from 'fastify'
 export async function refreshToken(req: FastifyRequest, res: FastifyReply) {
   await req.jwtVerify({ onlyCookie: true })
 
+  const { role, sub } = req.user
+
   const token = await res.jwtSign(
-    {},
+    { role },
     {
       sign: {
-        sub: req.user.sub,
+        sub,
       },
     },
   )
 
   const refreshToken = await res.jwtSign(
-    {},
+    { role },
     {
       sign: {
-        sub: req.user.sub,
+        sub,
         expiresIn: '7d',
       },
     },

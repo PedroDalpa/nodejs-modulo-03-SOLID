@@ -13,7 +13,7 @@ describe('Create check-in controller', () => {
   })
 
   it('should be able to create a check-in', async () => {
-    const { token } = await createAndAuthenticateUser()
+    const { token } = await createAndAuthenticateUser({ isAdmin: true })
 
     await supertest(app.server)
       .post('/gyms')
